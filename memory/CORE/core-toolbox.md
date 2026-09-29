@@ -28,6 +28,8 @@ updated: 2026-09-29
 - Content questions: gviz (`pw_read/src/row`) — indices are NOT sheet rows.
 - Position questions: Name Box + clipboard TSV — the only truth for addresses.
 - `pw_src.py` is the safe probe: no navigation, works on any doc ID, usable
-  while the operator's browser state must not change. Small targeted reads only
-  — full-CSV dumps for analysis were tried and proven inefficient (2026-09-29);
-  prefer clipboard/audit for bulk questions.
+  while the operator's browser state must not change. Small targeted peeks only.
+- **BAN: full-CSV dump + offline spreadsheet analysis.** Tried and proven
+  inefficient (2026-09-29: three full fetches + python harness to answer a
+  status question). Allowed ONLY when clipboard / audit / inspect cannot answer
+  at all — and then say so in one line before doing it.

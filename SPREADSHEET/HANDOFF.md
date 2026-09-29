@@ -65,11 +65,15 @@ Workbook: the spreadsheet titled **"JATIM RARA"**. Its tabs:
 
 ```
 STAGING · Raw_BELL · Raw_SMV · SOURCE OF TRUTH · CAL_FEED · MISMATCH
-2026.09 (SEPT)-importrange · Sheet10
+2026.09 (SEPT)-importrange · 2026.09 (SEPT)-test-cal_feed · Sheet10
 ```
 
 - **`2026.09 (SEPT)-importrange`** is **live production data**, imported from
   DAILY SCHEDULE F27. It is the reference for what the real calendar contains.
+- **`2026.09 (SEPT)-test-cal_feed`** is the operator-owned proving ground for
+  grid formulas (v3 installed at J297). Its job is narrow: does the formula RUN
+  (no error) or not — nothing more.
+
 - Source form URLs are embedded in **cell A1 of `Raw_BELL` and `Raw_SMV`** — read them
   from there, never retype them.
 
@@ -82,8 +86,8 @@ STAGING · Raw_BELL · Raw_SMV · SOURCE OF TRUTH · CAL_FEED · MISMATCH
 | `SOURCE OF TRUTH!A1` | VSTACK of both raw tabs, **filtered by AREA**, header re-attached | 739 rows (738 data) x 122 |
 | `CAL_FEED!A3` | feed, **month 9** | 166 x 6 |
 | `CAL_FEED!H3` | feed, **month 10** (self-removing dummy row until real data arrives) | 1 row |
-| `CAL_FEED!A1` | parked grid formula for Sept — intentionally `#REF!` | — |
-| `CAL_FEED!H1` | parked grid formula for Oct — intentionally `#REF!` | — |
+| `CAL_FEED!A1` | parked grid formula Sept v3 (bounded `$B$297:$B$381`, live block) — intentionally `#REF!` | — |
+| `CAL_FEED!H1` | parked grid formula Oct v3 (same block rows; Sept day-range until Oct grid exists) — intentionally `#REF!` | — |
 | `MISMATCH!A2` | diagnostic (§6) | 0–N rows |
 
 Backups of every live formula are in `C:\RARA\SPREADSHEET\*.txt`, named
@@ -209,11 +213,14 @@ Row 2 is the header:
 A=Nama TL · B=NAMA BA · C=CHANNEL · D=AREA · E=STATUS BA · F=OUTLET · G=BRAND FOCUS
 ```
 
-Row 1 holds day numbers from column J. In the current importrange tab, Rara's block sits
-at rows **296–379** plus **452–458** — split, with other teams in between.
+Row 1 holds day numbers from column J. Rara's block live at rows **297–381**
+(85 contiguous, verified 2026-09-29; was 296–379 + 452–458 — the block MOVES).
 
-> **Never hardcode a row range against it.** Reference `$B:$B` / `$F:$F` and let the
-> lookup find the BA wherever it lands.
+> **Lookups use whole columns** (`$B:$B` / `$F:$F`) so renames and moves never
+> break them. **Grid OUTPUT stays bounded to the live block rows** — a
+> whole-column grid spills 1000×30 and fits nowhere real (tried and reverted
+> 2026-09-29). Bounded rows are a maintenance item: re-check the extent whenever
+> the grid looks short.
 
 ---
 

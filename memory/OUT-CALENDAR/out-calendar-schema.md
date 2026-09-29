@@ -44,9 +44,10 @@ updated: 2026-09-29
 ## Target block (F27, via the 2026.09 importrange tab)
 
 Row 2 header: `A=Nama TL · B=NAMA BA · C=CHANNEL · D=AREA · E=STATUS BA ·
-F=OUTLET · G=BRAND FOCUS`. Row 1 = day numbers from column J. Rara's block
-currently rows **296–379 + 452–458** (split, other teams between — live
-2026-09-29: day headers 1–30 + `Nama TL/NAMA BA/CHANNE…` row confirmed).
+F=OUTLET · G=BRAND FOCUS`. Row 1 = day numbers from column J. Rara's block live
+rows **297–381** (85 contiguous, verified 2026-09-29; was 296–379 + 452–458 —
+the block MOVES, re-check on any short grid).
 
-> **Never hardcode a row range.** Reference `$B:$B` / `$F:$F` and let the lookup
-> find the BA wherever it lands (tab renames rewrite names, never ranges).
+> **Lookups use whole columns** (`$B:$B` / `$F:$F`). **Grid OUTPUT stays bounded
+> to live block rows** (v3) — whole-column grids spill 1000×30 and fit nowhere
+> (tried, reverted 2026-09-29).

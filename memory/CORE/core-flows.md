@@ -50,8 +50,8 @@ validation (shared offsets pass silently).
 Reconstructed from HANDOFF §9 + grid backups — operator confirms before use:
 1. New importrange tab for the month (live F27 data). 2. New feed block =
    copy of H3-formula with month digit edited (`bln=10` → 11). 3. Repoint parked
-   grid formula at the new feed range + new block rows (whole-column refs, not
-   `$B$321` — P11 debt must not be copied forward). 4. `pw_audit.py` + F5
+   grid formula at the new feed range + new block rows (bounded to the verified
+   live extent — whole-column grids spill 1000×30 and fit nowhere). 4. `pw_audit.py` + F5
    validation before calling it done.
 
 ## F8 — Photo batch (pointer)

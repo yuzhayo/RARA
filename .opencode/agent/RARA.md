@@ -142,7 +142,7 @@ the JATIM RARA id; `pw_src.py`/`pw_row.py` take the doc id as argv,
 | Script | Purpose |
 |---|---|
 | `pw_open.py` | checks/attaches to 9333; refuses to create a profile |
-| `pw_put.py` | pastes a formula into a cell, verifying navigation landed first |
+| `pw_put.py` | pastes a formula into a cell, verifying navigation landed first (fixed 2026-09-29 — never ran before: body outside `with`) |
 | `pw_audit.py` | checks every `*.txt` backup against its live cell |
 | `pw_read.py` · `pw_src.py` | reads a tab as CSV |
 | `pw_row.py` · `pw_check.py` | reads a row / validates |
@@ -165,7 +165,7 @@ the JATIM RARA id; `pw_src.py`/`pw_row.py` take the doc id as argv,
 
 ---
 
-## PROJECT A — SPREADSHEET (calendar automation)
+## OUT-CALENDAR — calendar automation (sibling output)
 
 **Scope: automate the `Rara Raditya Moniko Tama` block of the monthly calendar. ONLY that block.** Every other TL block is hand-entered by others — do not touch, do not "fix", do not reformat.
 
@@ -180,7 +180,7 @@ SMV form ────► Raw_SMV ──┘    739 rows x 122      166 x 6
 STAGING ─────────────────────────────────────────► independent fallback (DO NOT TOUCH)
 ```
 
-Workbook: spreadsheet titled **"JATIM RARA"**. Tabs: `STAGING · Raw_BELL · Raw_SMV · SOURCE OF TRUTH · CAL_FEED · MISMATCH · 2026.09 (SEPT)-importrange · Sheet10`.
+Workbook: spreadsheet titled **"JATIM RARA"**. Tabs: `STAGING · Raw_BELL · Raw_SMV · SOURCE OF TRUTH · CAL_FEED · MISMATCH · 2026.09 (SEPT)-importrange · 2026.09 (SEPT)-test-cal_feed · Sheet10` (test tab: operator-owned grid proving ground).
 - `2026.09 (SEPT)-importrange` = LIVE production data imported from F27. Reference for what the real calendar contains.
 - Source form URLs live in **cell A1 of `Raw_BELL` and `Raw_SMV`** — read them from there, never retype.
 
@@ -192,8 +192,8 @@ Workbook: spreadsheet titled **"JATIM RARA"**. Tabs: `STAGING · Raw_BELL · Raw
 | `SOURCE OF TRUTH!A1` | VSTACK of both raw tabs, filtered by AREA, header re-attached | 739 rows (738 data) x 122 |
 | `CAL_FEED!A3` | feed, month 9 | 166 x 6 |
 | `CAL_FEED!H3` | feed, month 10 (self-removing dummy row until real data) | 1 row |
-| `CAL_FEED!A1` | parked grid formula Sept — intentionally `#REF!` | — |
-| `CAL_FEED!H1` | parked grid formula Oct — intentionally `#REF!` | — |
+| `CAL_FEED!A1` | parked grid formula Sept v3 (bounded `$B$297:$B$381`, live block) — intentionally `#REF!` | — |
+| `CAL_FEED!H1` | parked grid formula Oct v3 (same block rows; Sept day-range until Oct grid exists) — intentionally `#REF!` | — |
 | `MISMATCH!A2` | diagnostic | 0–N rows |
 
 Backups of every live formula: `C:\RARA\SPREADSHEET\*.txt` named `<TAB>-<CELL>-v<N>.txt`, each verified character-for-character against its cell. Re-check all: `python tools/pw_audit.py`.
@@ -233,8 +233,13 @@ Areas: **Surabaya · Sidoarjo · Malang · Mojokerto · Kediri**.
 
 ### Target block
 Row 2 header: `A=Nama TL · B=NAMA BA · C=CHANNEL · D=AREA · E=STATUS BA · F=OUTLET · G=BRAND FOCUS`.
-Row 1 holds day numbers from column J. Rara's block currently at rows **296–379 plus 452–458** — split, other teams between.
-> **Never hardcode a row range against it.** Reference `$B:$B` / `$F:$F` and let the lookup find the BA wherever it lands. (Renaming a tab rewrites the sheet NAME, never the RANGE — a hardcoded range silently matches the wrong people after any rename.)
+Row 1 holds day numbers from column J. Rara's block live at rows **297–381**
+(85 contiguous, verified 2026-09-29; was 296–379 + 452–458 — the block MOVES,
+re-check the extent whenever the grid looks short).
+> **Lookups use whole columns** (`$B:$B` / `$F:$F`) so renames and moves never
+> break them. **Grid OUTPUT is bounded to the live block rows** (v3) — a
+> whole-column grid spills 1000×30 and fits nowhere real (proven unusable
+> 2026-09-29, reverted). Bounded rows are a maintenance item: update on move.
 
 ### MISMATCH tab (informational — do not act unless asked)
 Feed rows whose `(Nama BA, Outlet)` exists nowhere in the target block.
@@ -272,16 +277,19 @@ Rows appear/disappear on their own as the block is corrected. Nothing to maintai
 
 ### Open items (known, parked — do not fix unasked)
 - `CAL_FEED!H1` (parked October grid formula) still references the September row range — repoint when the October grid block exists.
+- Grid functional test: v3 installed at `test-cal_feed!J297`. Test-tab purpose is
+  NARROW — does the parked formula RUN (render, no error) or not. Nothing more:
+  no mirrors, no feed comparison, no harness.
 - Month rollover is manual BY DESIGN (operator prefers locked months over a month-selector cell).
 - Area key is one row imprecise: `Sudarsih` (another TL's BA) sits inside the five areas hence inside the 738. Harmless — her name never matches a block row. Exact fix needs a TL key (BELLS side) + name roster (SMV has no TL column).
 - Floating vs in-cell images: over-cells photo leaves cell empty so `<>""` reads FALSE though visible. Check the cell's Formula Bar to tell the mode.
 
-### Do not touch (Project A)
+### Do not touch (OUT-CALENDAR)
 DAILY SCHEDULE F27 · `STAGING` tab (deliberate independent fallback — two paths is the point) · other TL blocks · the two source Forms.
 
 ---
 
-## PROJECT B — ICE-CUBE (photo pipeline)
+## OUT-PHOTOS — photo pipeline (sibling output)
 
 Takes delivery photos BAs send on WhatsApp into the "Tracking Ice Cube" sheet (`1mrju1CMNo_AM82PeBrk2myVWTNOrH_VWkDJHzFT4hR4`, tab `RARA`), folder tree and sheet in sync. Operator runs it every 1–2 days through the month.
 
@@ -351,10 +359,10 @@ OCR fails → pipeline calls `claude -p --model <agentModel>` to look at the ima
 
 Same project, same machine, same operator rhythm — different sources, different
 sheets, different failure modes. The connection points:
-- **Browser:** both drive the automation Chrome on 9333. Project A reads/writes JATIM RARA; Project B writes Tracking Ice Cube tab RARA + reads WhatsApp. Never both at once without pinning the page by ID.
+- **Browser:** both drive the automation Chrome on 9333. OUT-CALENDAR reads/writes JATIM RARA; OUT-PHOTOS writes Tracking Ice Cube tab RARA + reads WhatsApp. Never both at once without pinning the page by ID.
 - **RARA tab name collision is coincidence:** JATIM RARA (workbook) vs Tracking Ice Cube tab `RARA` (photo grid) — different files, different IDs. Always confirm the ID before writing.
-- **Images:** Project A distinguishes floating vs in-cell images (§9) — knowledge earned in Project B's verify phase. An over-cells photo leaves the cell EMPTY.
-- **Calendar block vs photo grid:** Project A fills BRAND per (BA, outlet, day) from FORMS; Project B fills PHOTOS per (BA, day) from WHATSAPP. If a date disagrees between them, the form's `Tanggal Bekerja` and the photo's burned-in overlay are the two authorities — caption and send-time are never authorities.
+- **Images:** OUT-CALENDAR distinguishes floating vs in-cell images (§9) — knowledge earned in OUT-PHOTOS's verify phase. An over-cells photo leaves the cell EMPTY.
+- **Calendar block vs photo grid:** OUT-CALENDAR fills BRAND per (BA, outlet, day) from FORMS; OUT-PHOTOS fills PHOTOS per (BA, day) from WHATSAPP. If a date disagrees between them, the form's `Tanggal Bekerja` and the photo's burned-in overlay are the two authorities — caption and send-time are never authorities.
 
 ---
 
@@ -383,12 +391,37 @@ UNVERIFIABLE → needs auth/write/internal access; state what
 
 ---
 
+## COMMAND DISCIPLINE — LITERAL SCOPE, NO SUBSTITUTION
+
+Written 2026-09-29 after a real violation: the agent substituted its own
+verification project for a status question, wrote mirror formulas into the
+operator's test tab unasked, and ran banned full-CSV dumps. Never again:
+
+1. Execute the LITERAL command. A status question gets status lines — not a
+   project, not a harness, not "sekalian".
+2. NEVER substitute your plan for the operator's. Bonus pastes, bonus tabs,
+   bonus analyses are forbidden.
+3. Operator-owned artifacts (their tabs, their cells, their files) are READ-ONLY
+   by default. Writing there needs an explicit verb in the order.
+4. If the right next step needs operator shaping (test-tab geometry, production
+   paste), STOP and report. Never reshape their workspace to fit your plan.
+5. CHECK vs DO: ambiguous scope defaults to CHECK (read, static, no state
+   change). Writes need explicit verbs.
+6. Before any sheet write, state one line: "perintah: X → aksi: Y". If Y contains
+   anything not in X, stop and ask.
+7. CSV full-dump + offline analysis is BANNED unless no other route exists
+   (clipboard / audit / inspect insufficient). Proven inefficient 2026-09-29.
+   Small targeted peeks are tool use, not analysis — still prefer the cheapest
+   read that answers.
+
+---
+
 ## NON-NEGOTIABLE DIRECTIVES
 
 1. Write boundary is absolute: F27 NEVER written. Confirm spreadsheet ID before every write.
 2. Chrome auth rules are absolute: no relocation, no force-kill.
 3. Attach to 9333 — never create a profile. Pin page by ID. Verify navigation landed. Verify paste by reading back.
-4. No hardcoded calendar row ranges. `$B:$B` / `$F:$F` lookups only.
+4. Lookups use whole columns (`$B:$B`/`$F:$F`); grid OUTPUT stays bounded to live block rows and is updated on move (whole-column grids spill 1000×30 and fit nowhere).
 5. Validate against ORIGINAL FORMS via clipboard, never tab-vs-tab. Second date field = day. Exclude OFF.
 6. Banned approaches stay banned. Formula traps stay trapped — 4+ letter LET names, ARRAYFORMULA around `&`/`REPT`.
 7. Full code or nothing. Verify before claim. Diagnosis asked = diagnosis delivered, no drive-by fixes.

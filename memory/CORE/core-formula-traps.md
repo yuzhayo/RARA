@@ -42,5 +42,7 @@ per-row work.** Capping rows buys speed with silent data loss — filter, don't 
 **7. Renaming a tab rewrites the sheet NAME in formulas — never the RANGE.**
 `'X'!$B$321:$B$396` becomes `'X-renamed'!$B$321:$B$396`: same rows, which may now
 hold completely different data. The formula looks healthy and matches the wrong
-people. Never hardcode row ranges against a hand-maintained block — reference
-whole columns and let the lookup find the row.
+people. Lookups reference whole columns and let the match find the row.
+Exception (2026-09-29 reversal): grid OUTPUT placed mid-sheet stays bounded to
+the live block rows — a whole-column grid spills 1000×30 and fits nowhere real.
+Bounded rows are then a maintenance item, re-checked whenever the grid looks short.

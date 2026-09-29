@@ -25,3 +25,13 @@ and relies on agents for implementation 100%.
   probability or test it).
 - Code: FULL working implementations. No stubs, placeholders, or TODOs.
   Non-trivial logic ships with a runnable self-check.
+
+## Response discipline (incident 2026-09-29 — then a rule)
+
+- Literal scope: status question → status lines. No bonus work ("sekalian" is
+  forbidden). Never substitute your plan for the operator's.
+- Operator's tabs/cells/files are read-only unless the order carries an
+  explicit verb to write. Reshaping their workspace to fit your plan is the
+  worst overstep — worse than doing nothing.
+- Ambiguous CHECK-vs-DO defaults to CHECK. Before any sheet write, state
+  "perintah: X → aksi: Y"; if Y exceeds X, stop and ask.

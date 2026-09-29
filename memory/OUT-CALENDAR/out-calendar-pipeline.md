@@ -22,8 +22,11 @@ STAGING ────────────────────────
 
 Workbook **"JATIM RARA"** tabs:
 `STAGING · Raw_BELL · Raw_SMV · SOURCE OF TRUTH · CAL_FEED · MISMATCH ·
-2026.09 (SEPT)-importrange · Sheet10` — all 8 confirmed live 2026-09-29
-(CSV serves with data; headers match canonical order).
+2026.09 (SEPT)-importrange · 2026.09 (SEPT)-test-cal_feed · Sheet10` — 8
+confirmed live 2026-09-29 (CSV serves with data; headers match canonical
+order). Test tab = operator-owned grid proving ground (v3 installed at J297).
+Its job is NARROW: does the parked formula RUN (no error) or not — nothing
+more. No mirrors, no feed comparison.
 
 - `2026.09 (SEPT)-importrange` = LIVE production data from F27. Reference only.
 - Source form URLs live in **cell A1 of `Raw_BELL` and `Raw_SMV`** — read them
@@ -39,7 +42,7 @@ Workbook **"JATIM RARA"** tabs:
 | `SOURCE OF TRUTH!A1` | VSTACK of both, AREA-filtered, header re-attached | 739 rows (738 data) x 122 |
 | `CAL_FEED!A3` | feed, month 9 (live: Sep rows flowing, e.g. LAVITA/23 TENGGILIS/CMSA) | 166 x 6 |
 | `CAL_FEED!H3` | feed, month 10 (self-removing dummy row until real data) | 1 row |
-| `CAL_FEED!A1` / `H1` | parked grid formulas Sept/Oct — intentionally `#REF!` | — |
+| `CAL_FEED!A1` / `H1` | parked grid formulas Sept/Oct v3 (bounded `$B$297:$B$381`) — intentionally `#REF!` | — |
 | `MISMATCH!A2` | diagnostic | 0–N rows (0 live 2026-09-29: every feed row has a home) |
 
 Backups: `SPREADSHEET/<TAB>-<CELL>-v<N>.txt`, verified character-for-character.
