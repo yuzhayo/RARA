@@ -1,0 +1,65 @@
+# ===========================================================================
+#  C:\RARA
+# ===========================================================================
+#
+# What this repository is FOR: the tools and the documentation.
+#
+#     ICE-CUBE/ICE-CUBE-TOOLS\    the code
+#     ICE-CUBE/ICE-CUBE-DOCS\     how it works and how to run it
+#
+# Everything excluded below is either generated, or is somebody's photograph,
+# or is tied to this machine. Together they are ~780 MB of the ~784 MB here.
+#
+# ===========================================================================
+
+
+# --- the automation browser -------------------------------------------------
+# ~713 MB of Chrome profile. Machine-specific, rewritten on every run, and
+# impossible to diff. It is the BROWSER's data, not this project's - which is
+# why it lives beside the workspace rather than inside it.
+BROWSER-AUTOMATION/
+
+
+# --- the month folder -------------------------------------------------------
+# ICE-CUBE-SEPT\ is the WORK, not the source: the BA photo folders, the flat
+# NOTA copies, and the pipeline's own state.
+#
+#   .ledger.json          which cells are already inserted
+#   _scan-state.json      how far each chat has been checked
+#   _verified.json        what each cell was seen to contain
+#   _manual-dates.json    dates read by hand or by the agent
+#   _not-reports.json     images settled as "not a report"
+#   captions.json         nominal + outlet read from captions
+#   logs\                 pipeline logs
+#   verify-shots\         the screenshots behind each verdict
+#   <BA folder>\          the photos themselves
+#
+# Two reasons to keep all of it out. It changes on every run, so it would be
+# noise in every diff. And the photos carry other people's names, addresses and
+# receipts - they are not something to put in a repository by accident.
+#
+# The shape of this folder is documented in ICE-CUBE-DOCS\REFERENCE.md, so
+# nothing is lost by not tracking it.
+ICE-CUBE/ICE-CUBE-SEPT/
+
+
+# --- staging ----------------------------------------------------------------
+# Images pulled from WhatsApp, rebuilt by every fetch. Safe to delete at any
+# time; there is nothing here that is not produced again on the next run.
+ICE-CUBE/WA-DOWNLOAD/
+
+
+# --- machine and tool clutter -----------------------------------------------
+desktop.ini
+Thumbs.db
+.DS_Store
+*~
+
+__pycache__/
+*.py[cod]
+node_modules/
+
+# --- editor -----------------------------------------------------------------
+.vscode/
+.idea/
+*.swp

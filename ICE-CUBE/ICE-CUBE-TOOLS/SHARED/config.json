@@ -1,0 +1,31 @@
+{
+  "_monthFolderNote": "The ONLY thing to change each month. The folder holding this month's photos + BA subfolders, a sibling of ICE-CUBE-TOOLS.",
+  "monthFolder": "ICE-CUBE-SEPT",
+  "spreadsheetId": "1mrju1CMNo_AM82PeBrk2myVWTNOrH_VWkDJHzFT4hR4",
+  "tab": "RARA",
+  "chromePort": 9333,
+  "_agentNote": "The model phases 4 and 7 call to READ AN IMAGE. It must be able to see one: a model that cannot does not error, it answers anyway, so the reading would look real and be a guess. deepseek-v4-flash is the one that works here.",
+  "agentModel": "deepseek-v4-flash",
+  "dateRow": {
+    "firstRow": 3,
+    "firstDay": 1
+  },
+  "columns": {
+    "SBY PRISCA YUNITA": "B",
+    "SBY SUMARI SAWI RATIH": "C",
+    "SBY LAVITA": "D",
+    "SBY RINDIANI": "E",
+    "SBY RINZANA NUR": "F",
+    "SBY DESY NUR HIDAYATI": "G",
+    "MALANG IFFARAH RAHMADANI": "H",
+    "MALANG DEWI FALASIVA": "I",
+    "MOJOKERTO DESI MUCHORIA": "J",
+    "SIDOARJO LINDAWATI": "K",
+    "KEDIRI DEVI": "L"
+  },
+  "ignoreFolders": [
+    "ICE-CUBE-NOTA",
+    "__pycache__"
+  ],
+  "_ignoreFoldersNote": "Subfolders of the month folder that are NOT BA folders and must be skipped when scanning. ICE-CUBE-NOTA holds the flat copies for manual entry; __pycache__ is Python build output."
+}

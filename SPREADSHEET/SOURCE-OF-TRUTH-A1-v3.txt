@@ -1,0 +1,1 @@
+=LET(stacked;VSTACK(Raw_BELL!A1:DR;Raw_SMV!A2:DR);a;CHOOSECOLS(stacked;6);keep;ARRAYFORMULA((LEN(CHOOSECOLS(stacked;4))>0)*((a="Surabaya")+(a="Sidoarjo")+(a="Malang")+(a="Mojokerto")+(a="Kediri"))>0);VSTACK(ARRAY_CONSTRAIN(stacked;1;122);FILTER(stacked;keep)))
