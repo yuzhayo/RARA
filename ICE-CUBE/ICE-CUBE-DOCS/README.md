@@ -22,7 +22,7 @@ C:\RARA\
       INPUTTER\          write to the sheet, read it back
       run-pipeline.js    runs the stages in order
     WA-DOWNLOAD\         temp staging for fetched images
-  SPREADSHEET\           (not part of this pipeline)
+  SPREADSHEET\           sibling output: calendar automation (see SPREADSHEET\HANDOFF.md)
 ```
 
 **The browser profile sits beside the workspace on purpose.** It is the
@@ -287,11 +287,15 @@ wipe the account identity. This was done once, on 2026-09-26, to work around a
 debug-port restriction — it destroyed Google sign-in on two profiles that were
 needed for work and cost a real sign-in to recover.
 
-The automation profile is different and safe: it has **only ever lived at one
-path**. That is the whole reason it works.
+The automation profile is different and safe: it has been copied, moved and renamed,
+and its sign-in survived all three — measured 2026-09-29. Losing its sign-in costs
+one sign-in, not data. The dangerous failure is the OTHER one above: running a
+signed-in REAL profile through a junction, which destroyed working accounts.
 
 **Never force-kill Chrome.** Graceful close, then wait for the process count to
 hit zero.
 
-**Never move or rename `BROWSER-AUTOMATION`.** Chrome ties cookie encryption to
-the path.
+**Do not move or rename `BROWSER-AUTOMATION` without reason.** A move survived
+with sign-in intact (measured 2026-09-29), but every path change risks a
+re-sign-in — and every path derives from the code location, so a move needs no
+editing anyway. Never relocate it via junction or symlink.

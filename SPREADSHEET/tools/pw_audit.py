@@ -10,7 +10,8 @@ PAIRS = [
     ("CAL_FEED!A1",                    "CAL_FEED-A1-grid-SEPT-v1.txt"),
     ("CAL_FEED!H1",                    "CAL_FEED-H1-grid-OCT-v1.txt"),
     ("MISMATCH!A2",                    "MISMATCH-A2-v4.txt"),
-    ("TEST-2026.09 (SEPT)!J321",       "TEST-SEPT-J321-v4.txt"),
+    # TEST-2026.09 (SEPT)!J321 / TEST-SEPT-J321-v4.txt removed 2026-09-29:
+    # backup file never existed on disk and the tab is gone from the workbook.
 ]
 
 

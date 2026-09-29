@@ -87,7 +87,7 @@ export class Browser {
           throw new Error(
             `No debug port on ${port}. Is the automation Chrome running?\n\n` +
             `  ${launchCommand(port)}\n\n` +
-            `(Profile: ${AUTOMATION_PROFILE} - do NOT move or copy this folder.)`);
+            `(Profile: ${AUTOMATION_PROFILE} - avoid moving it without reason; a move survived measured 2026-09-29 but may cost a re-sign-in. Never via junction.)`);
         }
         await sleep(500);
       }

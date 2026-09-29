@@ -34,16 +34,16 @@ ID** before acting (§4) — a bare `pages[0]` lands on the wrong file.
 ## 2. Where things live
 
 ```
-C:\RARA\                          git repository
-  SPREADSHEET\                    this work: formula backups, docs, tools
-  ICE-CUBE\                       separate project — do not modify from here
-    ICE-CUBE-AUTOMATION\          the browser profile
+C:\RARA\                          git repository — ONE project, TWO report outputs
+  SPREADSHEET\                    OUT-CALENDAR: formula backups, docs, tools
+  ICE-CUBE\                       OUT-PHOTOS: photo pipeline (own tools, docs, session)
     ICE-CUBE-TOOLS\  ICE-CUBE-DOCS\  ICE-CUBE-SEPT\
+  BROWSER-AUTOMATION\             the shared automation Chrome profile (sibling, not inside)
 ```
 
-`ICE-CUBE` is an independent project (photo capture + OCR into a spreadsheet) with its
-own tools, docs and session. This document does not cover it — only its browser profile
-is borrowed.
+`ICE-CUBE\` is the photo half of the same reporting job (WhatsApp photos into the
+Tracking sheet) with its own tools, docs and session — see `ICE-CUBE-DOCS\README.md`.
+This document covers the calendar half. Both halves share the browser profile below.
 
 ---
 
@@ -100,7 +100,7 @@ Generated sheets (`Raw_BELL`, `Raw_SMV`, `SOURCE OF TRUTH`, `CAL_FEED`, `MISMATC
 **Use the ICE-CUBE browser. Attach to it. Never create a profile.**
 
 ```
-chrome.exe --user-data-dir="C:\RARA\ICE-CUBE\ICE-CUBE-AUTOMATION"
+chrome.exe --user-data-dir="C:\RARA\BROWSER-AUTOMATION"
            --profile-directory=Default
            --remote-debugging-port=9333
 ```
@@ -114,7 +114,9 @@ Why a dedicated profile is required: since Chrome 136, `--remote-debugging-port`
 **ignored when the user-data-dir is the default Chrome path**, even when passed
 explicitly. A dedicated directory sidesteps it.
 
-Scripts in `C:\RARA\SPREADSHEET\tools\` — all pre-pointed at port 9333 and the JATIM RARA id:
+Scripts in `C:\RARA\SPREADSHEET\tools\` — all on port 9333. Seven are pre-pointed at
+the JATIM RARA id; `pw_src.py` / `pw_row.py` take the doc id as an argument, and
+`pw_icecube.py` probes the Tracking Ice Cube id instead:
 
 | Script | Purpose |
 |---|---|
@@ -339,7 +341,7 @@ the first silently halves the lookup.
 | `STAGING` tab | Deliberate fallback — it pulls from the forms by its own independent path. If `SOURCE OF TRUTH` ever breaks, the calendar still runs off this. Two independent paths is the point. |
 | Other TL blocks | Out of scope; hand-entered by others. |
 | The two source Forms | Live production data. |
-| `ICE-CUBE\` | Separate project with its own scope. Borrow its browser only. |
+| `ICE-CUBE\` | The photo half of the same job — covered by `ICE-CUBE-DOCS\README.md`, not here. Coordinate via the shared browser, don't edit its code from calendar work. |
 
 **Do not make changes that were not asked for.** Several rounds have been wasted offering
 fixes nobody requested. When the operator asks a question, answer it — a diagnosis is

@@ -19,7 +19,7 @@ import urllib.request
 from playwright.sync_api import sync_playwright
 
 PORT = 9333
-PROFILE = pathlib.Path(r"C:\RARA\ICE-CUBE\ICE-CUBE-AUTOMATION")
+PROFILE = pathlib.Path(r"C:\RARA\BROWSER-AUTOMATION")
 SHEET = "https://docs.google.com/spreadsheets/d/1mzT93dHVo1zYGljO42p9vg7kWf6pxqOHi1bR9uA8eRM/edit"
 
 
