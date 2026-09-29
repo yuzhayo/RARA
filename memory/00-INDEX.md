@@ -33,6 +33,9 @@ RARA — Jatim BA field-ops reporting automation
 | `CORE/core-evidence.md` | Verdict hierarchy + independent-source validation |
 | `CORE/core-communication.md` | Operator conventions: folder-first, teaching, no drive-by fixes |
 | `CORE/core-methodology.md` | Analyst flow + formula library (seed) + when to leave Sheets |
+| `CORE/core-formula-library.md` | 12 proven patterns from the 8 live backups (P1–P12) |
+| `CORE/core-toolbox.md` | The 10 pw_* scripts: syntax, IDs, gotchas |
+| `CORE/core-flows.md` | Named flows: audit, write, read, validate, diagnose, rollover |
 | `DOMAIN/domain-scope.md` | Areas, roster pointer, date authorities, naming |
 | `DOMAIN/domain-boundaries.md` | Write scope (3 IDs), profile, ports, pin-by-ID snippet |
 | `OUT-CALENDAR/out-calendar-pipeline.md` | Forms → feed → grid, live cells, MISMATCH, validation, open items |

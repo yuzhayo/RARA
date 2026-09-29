@@ -33,11 +33,11 @@ def main():
     with sync_playwright() as p:
         b = p.chromium.connect_over_cdp("http://localhost:9333")
         PAGES = [x for x in b.contexts[0].pages if "spreadsheets/d/" in x.url]
-    page = next((x for x in PAGES if "1mzT93dHVo1zYGljO42p9vg7kWf6pxqOHi1bR9uA8eRM" in x.url), None)
-    if page is None:
-        raise SystemExit("JATIM RARA tab not open in the browser (found: "
-                         + ", ".join(x.url.split("/d/")[1][:22] for x in PAGES if "/d/" in x.url) + ")")
-    page.bring_to_front()
+        page = next((x for x in PAGES if "1mzT93dHVo1zYGljO42p9vg7kWf6pxqOHi1bR9uA8eRM" in x.url), None)
+        if page is None:
+            raise SystemExit("JATIM RARA tab not open in the browser (found: "
+                             + ", ".join(x.url.split("/d/")[1][:22] for x in PAGES if "/d/" in x.url) + ")")
+        page.bring_to_front()
         page.bring_to_front()
         if clear_cell:
             nav(page, clear_cell)
